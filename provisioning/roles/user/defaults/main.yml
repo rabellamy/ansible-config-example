@@ -1,0 +1,5 @@
+---
+ users:
+  - username: rabellamy
+    type: admin
+    state: present

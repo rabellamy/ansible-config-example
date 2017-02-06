@@ -1,0 +1,14 @@
+---
+- name: Defining a user and home directory
+  user:
+    name: "{{ item.username }}"
+    shell: /bin/bash
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ users }}"
+
+- name: Adding SSH authorized key
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "https://github.com/{{ item.username }}.keys"
+  when: item.get('state', 'present') == 'present'
+  with_items: "{{ users }}"
